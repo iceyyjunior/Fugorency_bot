@@ -1,1 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fugorency</title>
 
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #02070d;
+  color: white;
+}
+
+.app {
+  max-width: 520px;
+  min-height: 100vh;
+  margin: auto;
+  background: linear-gradient(180deg, #06101c, #02070d);
+  padding-bottom: 80px;
+}
+
+header {
+  padding: 20px;
+  border-bottom: 1px solid #17283b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.logo span {
+  color: #8cff00;
+}
+
+.status {
+  font-size: 11px;
+  color: #8cff00;
+  border: 1px solid #315900;
+  padding: 6px 9px;
+  border-radius: 8px;
+}
+
+.page {
+  display: none;
+  padding: 18px;
+}
+
+.page.active {
+  display: block;
+}
+
+h1 {
+  font-size: 27px;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #7f91a5;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: linear-gradient(145deg, #0c1b2c, #07111d);
+  border: 1px solid #19304a;
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 15px;
+}
+
+.label {
+  color: #7d8fa3;
+  font-size: 12px;
+}
+
+.balance {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 7px 0;
+}
+
+.green {
+  color: #8cff00;
+}
+
+.blue {
+  color: #168cff;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.primary {
+  background: #8cff00;
+  color: #02070d;
+  border-radius: 11px;
+  padding: 14px;
+}
+
+.secondary {
+  background: #0b1727;
+  border: 1px solid #19304a;
+  border-radius: 11px;
+  padding: 14px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0 10px;
+  font-size: 16px;
+}
+
+.coin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: #081421;
+  border: 1px solid #172c43;
+  border-radius: 13px;
+  margin-bottom: 9px;
+}
+
+.coin-left {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.coin-icon {
+  width: 39px;
+  height: 39px;
+  border-radius: 50%;
+  background: #14263a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+.coin-name {
+  font-weight: 700;
+}
+
+.coin-symbol {
+  color: #72859a;
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.coin-price {
+  text-align: right;
+}
+
+.coin-change {
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.trade-box {
+  background: #071321;
+  border: 1px solid #19304a;
+  border-radius: 17px;
+  padding: 17px;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  background: #040b13;
+  border-radius: 11px;
+  padding: 4px;
+  margin-bottom: 18px;
+}
+
+.tabs button {
+  background: transparent;
+  padding: 11px;
+  border-radius: 8px;
+  color: #7890a7;
+}
+
+.tabs button.active {
+  background: #8cff00;
+  color: #02070d;
+}
+
+.input {
+  background: #030a12;
+  border: 1px solid #1a3149;
+  padding: 15px;
+  border-radius: 11px;
+  margin-bottom: 10px;
+}
+
+.input label {
+  display: block;
+  color: #71859b;
+  font-size: 11px;
+  margin-bottom: 7px;
+}
+
+.input input {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: white;
+  font-size: 19px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#8cff00,#168cff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #02070d;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: #081421;
+  border: 1px solid #172c43;
+  border-radius: 12px;
+  margin-bottom: 9px;
+}
+
+.setting small {
+  display: block;
+  color: #71859b;
+  margin-top: 4px;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(520px,100%);
+  background: #050c15;
+  border-top: 1px solid #19304a;
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  padding: 8px 5px;
+}
+
+.nav-btn {
+  background: transparent;
+  color: #708399;
+  padding: 8px 2px;
+  font-size: 10px;
+}
+
+.nav-btn.active {
+  color: #8cff00;
+}
+
+.nav-icon {
+  font-size: 19px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #102033;
+  border: 1px solid #29435d;
+  padding: 13px 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  display: none;
+  z-index: 20;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+  <div class="logo">FUGO<span>RENCY</span></div>
+  <div class="status">DEMO MODE</div>
+</header>
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+<h1>Welcome back</h1>
+<p class="subtitle">Trade. Exchange. Empower.</p>
+
+<div class="card">
+  <div class="label">Total Balance</div>
+  <div class="balance">$12,480.35</div>
+  <div class="green">+$344.82 · +2.84% today</div>
+
+  <div class="buttons">
+    <button class="primary" onclick="showToast('Deposit system will be connected later')">
+      Deposit
+    </button>
+
+    <button class="secondary" onclick="navigate('trade')">
+      Trade
+    </button>
+  </div>
+</div>
+
+<div class="section-title">
+  <b>Popular Markets</b>
+  <span class="green">View all</span>
+</div>
+
+<div class="coin">
+  <div class="coin-left">
+    <div class="coin-icon">₿</div>
+    <div>
+      <div class="coin-name">Bitcoin</div>
+      <div class="coin-symbol">BTC / USDT</div>
+    </div>
+  </div>
+  <div class="coin-price">
+    <b>$67,421</b>
+    <div class="coin-change green">+2.41%</div>
+  </div>
+</div>
+
+<div class="coin">
+  <div class="coin-left">
+    <div class="coin-icon">Ξ</div>
+    <div>
+      <div class="coin-name">Ethereum</div>
+      <div class="coin-symbol">ETH / USDT</div>
+    </div>
+  </div>
+  <div class="coin-price">
+    <b>$3,842</b>
+    <div class="coin-change green">+1.83%</div>
+  </div>
+</div>
+
+</section>
+
+<!-- MARKETS -->
+<section id="markets" class="page">
+
+<h1>Markets</h1>
+<p class="subtitle">Live market overview</p>
+
+<div class="coin">
+  <div class="coin-left">
+    <div class="coin-icon">₿</div>
+    <div><div class="coin-name">Bitcoin</div><div class="coin-symbol">BTC</div></div>
+  </div>
+  <div class="coin-price"><b>$67,421</b><div class="coin-change green">+2.41%</div></div>
+</div>
+
+<div class="coin">
+  <div class="coin-left">
+    <div class="coin-icon">Ξ</div>
+    <div><div class="coin-name">Ethereum</div><div class="coin-symbol">ETH</div></div>
+  </div>
+  <div class="coin-price"><b>$3,842</b><div class="coin-change green">+1.83%</div></div>
+</div>
+
+<div class="coin">
+  <div class="coin-left">
+    <div class="coin-icon">₮</div>
+    <div><div class="coin-name">Tether</div><div class="coin-symbol">USDT</div></div>
+  </div>
+  <div class="coin-price"><b>$1.00</b><div class="coin-change green">+0.02%</div></div>
+</div>
+
+<div class="coin">
+  <div class="coin-left">
+    <div class="coin-icon">S</div>
+    <div><div class="coin-name">Solana</div><div class="coin-symbol">SOL</div></div>
+  </div>
+  <div class="coin-price"><b>$174.20</b><div class="coin-change green">+4.12%</div></div>
+</div>
+
+<div class="coin">
+  <div class="coin-left">
+    <div class="coin-icon">X</div>
+    <div><div class="coin-name">XRP</div><div class="coin-symbol">XRP</div></div>
+  </div>
+  <div class="coin-price"><b>$0.61</b><div class="coin-change">-0.72%</div></div>
+</div>
+
+</section>
+
+<!-- TRADE -->
+<section id="trade" class="page">
+
+<h1>Trade</h1>
+<p class="subtitle">Buy, sell or swap digital assets</p>
+
+<div class="trade-box">
+
+<div class="tabs">
+  <button class="active" onclick="tradeTab(this)">Buy</button>
+  <button onclick="tradeTab(this)">Sell</button>
+  <button onclick="tradeTab(this)">Swap</button>
+</div>
+
+<div class="input">
+  <label>YOU PAY</label>
+  <input type="number" id="amount" placeholder="0.00">
+</div>
+
+<div class="input">
+  <label>ASSET</label>
+  <input value="USDT" readonly>
+</div>
+
+<div style="text-align:center;margin:12px;color:#71859b">↓</div>
+
+<div class="input">
+  <label>YOU RECEIVE</label>
+  <input id="receive" value="0.00" readonly>
+</div>
+
+<button class="primary" style="width:100%" onclick="calculateTrade()">
+  Preview Trade
+</button>
+
+</div>
+
+</section>
+
+<!-- WALLET -->
+<section id="wallet" class="page">
+
+<h1>Wallet</h1>
+<p class="subtitle">Your digital assets</p>
+
+<div class="card">
+  <div class="label">Total Wallet Value</div>
+  <div class="balance">$12,480.35</div>
+  <div class="green">+$344.82 today</div>
+</div>
+
+<div class="section-title"><b>Assets</b></div>
+
+<div class="coin">
+  <div class="coin-left">
+    <div class="coin-icon">₿</div>
+    <div><div class="coin-name">Bitcoin</div><div class="coin-symbol">BTC</div></div>
+  </div>
+  <div class="coin-price"><b>$4,832.40</b><div class="coin-symbol">38.72%</div></div>
+</div>
+
+<div class="coin">
+  <div class="coin-left">
+    <div class="coin-icon">Ξ</div>
+    <div><div class="coin-name">Ethereum</div><div class="coin-symbol">ETH</div></div>
+  </div>
+  <div class="coin-price"><b>$3,186.10</b><div class="coin-symbol">25.53%</div></div>
+</div>
+
+<div class="coin">
+  <div class="coin-left">
+    <div class="coin-icon">₮</div>
+    <div><div class="coin-name">Tether</div><div class="coin-symbol">USDT</div></div>
+  </div>
+  <div class="coin-price"><b>$2,761.85</b><div class="coin-symbol">22.13%</div></div>
+</div>
+
+<div class="coin">
+  <div class="coin-left">
+    <div class="coin-icon">S</div>
+    <div><div class="coin-name">Solana</div><div class="coin-symbol">SOL</div></div>
+  </div>
+  <div class="coin-price"><b>$1,700.00</b><div class="coin-symbol">13.62%</div></div>
+</div>
+
+</section>
+
+<!-- PROFILE -->
+<section id="profile" class="page">
+
+<h1>Profile</h1>
+<p class="subtitle">Account and preferences</p>
+
+<div class="card">
+  <div class="profile">
+    <div class="avatar">F</div>
+    <div>
+      <b style="font-size:18px">Fugorency User</b>
+      <div class="label">@telegram_user</div>
+      <div class="green" style="font-size:11px;margin-top:5px">
+        ● Demo account
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-title"><b>Account</b></div>
+
+<div class="setting" onclick="showToast('Security settings coming next')">
+  <div><b>Security</b><small>Protect your account</small></div>
+  <span>›</span>
+</div>
+
+<div class="setting" onclick="showToast('Notification settings coming next')">
+  <div><b>Notifications</b><small>Market and account alerts</small></div>
+  <span>›</span>
+</div>
+
+<div class="setting" onclick="showToast('Preferences coming next')">
+  <div><b>Preferences</b><small>Currency and language</small></div>
+  <span>›</span>
+</div>
+
+<div class="section-title"><b>Fugorency</b></div>
+
+<div class="setting" onclick="showToast('Referral system coming next')">
+  <div><b>Referral</b><small>Invite users and earn rewards</small></div>
+  <span>›</span>
+</div>
+
+<div class="setting" onclick="showToast('Support system coming next')">
+  <div><b>Help & Support</b><small>Get assistance</small></div>
+  <span>›</span>
+</div>
+
+</section>
+
+</div>
+
+<nav class="bottom-nav">
+
+<button class="nav-btn active" onclick="navigate('home',this)">
+<span class="nav-icon">⌂</span>Home
+</button>
+
+<button class="nav-btn" onclick="navigate('markets',this)">
+<span class="nav-icon">◈</span>Markets
+</button>
+
+<button class="nav-btn" onclick="navigate('trade',this)">
+<span class="nav-icon">⇄</span>Trade
+</button>
+
+<button class="nav-btn" onclick="navigate('wallet',this)">
+<span class="nav-icon">▣</span>Wallet
+</button>
+
+<button class="nav-btn" onclick="navigate('profile',this)">
+<span class="nav-icon">●</span>Profile
+</button>
+
+</nav>
+
+<div id="toast" class="toast"></div>
+
+<script>
+
+function navigate(page, button) {
+
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+  });
+
+  document.getElementById(page).classList.add('active');
+
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.remove('active');
+  });
+
+  if(button) {
+    button.classList.add('active');
+  } else {
+
+    document.querySelectorAll('.nav-btn').forEach(b => {
+
+      if(b.innerText.toLowerCase().includes(page)) {
+        b.classList.add('active');
+      }
+
+    });
+
+  }
+
+  window.scrollTo(0,0);
+}
+
+function showToast(message) {
+
+  const toast = document.getElementById('toast');
+
+  toast.innerText = message;
+  toast.style.display = 'block';
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer = setTimeout(() => {
+    toast.style.display = 'none';
+  }, 2200);
+}
+
+function tradeTab(button) {
+
+  document.querySelectorAll('.tabs button').forEach(b => {
+    b.classList.remove('active');
+  });
+
+  button.classList.add('active');
+
+  showToast(button.innerText + ' mode selected');
+}
+
+function calculateTrade() {
+
+  const amount = Number(document.getElementById('amount').value);
+
+  if(!amount || amount <= 0) {
+    showToast('Enter an amount first');
+    return;
+  }
+
+  const estimated = amount * 0.998;
+
+  document.getElementById('receive').value =
+    estimated.toFixed(2) + ' USDT';
+
+  showToast('Demo trade preview created');
+}
+
+</script>
+
+</body>
+  </html>
